@@ -1,7 +1,6 @@
 import Phaser from 'phaser'
 
 import BunnyJumpScene from './BunnyJumpScene'
-import GameOverScene from './GameOverScene'
 
 const config = {
 	type: Phaser.AUTO,
@@ -14,7 +13,7 @@ const config = {
 			gravity: { y: 200 },
 		},
 	},
-	scene: [BunnyJumpScene, GameOverScene],
+	scene: [BunnyJumpScene],
 }
 
 export default new Phaser.Game(config)

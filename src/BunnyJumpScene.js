@@ -19,7 +19,6 @@ export default class BunnyJumpScene extends Phaser.Scene
         this.load.image('carrot', 'assets/images/carrot.png')
         this.load.image('bunny_jump', 'assets/images/bunny1_jump.png')
         this.load.image('bunny_stand', 'assets/images/bunny1_stand.png')
-        this.load.audio('jumpSound','assets/sfx/phaseJump1.ogg') 
     }
 
     create(){
@@ -105,7 +104,6 @@ export default class BunnyJumpScene extends Phaser.Scene
             this.player.setVelocityY(-300) // -300 karena keatas
             //dan berubah animasi menjadi melompat
             this.player.setTexture('bunny_jump')
-            this.sound.play('jumpSound') 
         }
 
         //mencari percepatan/ kecepatan player
@@ -147,12 +145,6 @@ export default class BunnyJumpScene extends Phaser.Scene
         })
 
         this.horizontalWrap(this.player)
-        //meeting6
-        //platform paling bawah akan di simpan ke var bottomPlatform
-        const bottomPlatform = this.findBottomMostPlatform()
-        if(this.player.y > bottomPlatform.y + 200){//jika player ada di bawah platforms paling bawah
-            this.scene.start('game-over-scene')//pindah ke scene game over
-        }
     }
 
     //untuk mengatur agar player tidak hilang saat keluar layar
@@ -185,24 +177,5 @@ export default class BunnyJumpScene extends Phaser.Scene
         this.carrotsCollected++//menambahkan score 
         const value = `Carrots: ${this.carrotsCollected}`//menampilkan value score
         this.carrotsCollectedText.text = value
-    }
-
-    //function/method untuk mencari platform paling bawah
-    findBottomMostPlatform() {
-        //panggil children dari platforms global (platformchild)
-        const platforms = this.platforms.getChildren()
-        //ambil item pertama dari array platforms lokal (item pertama pasti paling bawah, karena setelahny msh kosong)
-        let bottomPlatform = platforms[0] 
-        //perulangan dimaksudkan untuk terus mencari platform terbawah selama game dijalankan
-        for (let i=1; i<platforms.length; i++) {// satu2 platform akan di cek mulai dari platform i (1)
-            const platform = platforms[i]
-            //jika y platform [i] lebih dari y bottomplatform (ada di bawah), maka platform akan di set ke bottomplatform
-            if (platform.y < bottomPlatform.y){
-                continue 
-            }
-            //bottom platform di ganti dengan platform [i] yang y nya lebih besar (ada di bawah)
-            bottomPlatform = platform
-        }
-        return bottomPlatform
     }
 }
